@@ -119,5 +119,8 @@
       }
     }
   },
-  "defaultProject": "team-gunji"
+  "defaultProject": "team-gunji",
+  "cli": {
+    "analytics": false
+  }
 }
