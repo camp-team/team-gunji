@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
 import { Room } from 'src/app/interfaces/room';
 import { AuthService } from 'src/app/services/auth.service';
 import { RoomService } from 'src/app/services/room.service';
@@ -12,16 +13,17 @@ export class RoomComponent implements OnInit {
   uid: number | any;
 
   room: Room = {
-    roomId: '1233',
-    roomName: 'kitchen',
-    latest: new Date('2020/11/26 12:20:43'),
+    id: '1233',
+    name: 'kitchen',
+    completedAt: firebase.default.firestore.Timestamp.now(),
+    imageId: 1,
     pooCount: 2,
   };
 
   now = new Date();
 
   elapsedDate = Math.floor(
-    (this.now.getTime() - this.room.latest.getTime()) / 86400000
+    (this.now.getTime() - this.room.completedAt.toMillis()) / 86400000
   );
 
   limitDate = 21 - this.elapsedDate;
@@ -34,14 +36,14 @@ export class RoomComponent implements OnInit {
   ) {}
 
   finishedTask() {
-    this.room.latest = new Date();
+    this.room.completedAt = firebase.default.firestore.Timestamp.now();
     this.room.pooCount = 0;
     this.limitDate = 21;
     this.progressNum = 0;
     this.roomService.updateRoom(
-      this.room.roomId,
-      this.room.roomName,
-      this.room.latest,
+      this.room.id,
+      this.room.name,
+      this.room.completedAt,
       this.room.pooCount,
       this.uid
     );
