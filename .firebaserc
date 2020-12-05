@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "poo-buster": {
+      "hosting": {
+        "team-gunji": [
+          "poo-buster"
+        ]
+      }
+    }
+  }
+}
