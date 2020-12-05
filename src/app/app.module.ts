@@ -18,6 +18,8 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +38,7 @@ import {
     AngularFireStorageModule,
     AngularFireFunctionsModule,
     MatSnackBarModule,
+    DragDropModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
