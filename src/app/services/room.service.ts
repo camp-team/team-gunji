@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
 import { Room } from '../interfaces/room';
 
 @Injectable({
@@ -34,7 +35,7 @@ export class RoomService {
   async updateRoom(
     roomId: string,
     roomName: string,
-    latest: Date,
+    latest: firebase.default.firestore.Timestamp,
     pooCount: number,
     uid: number
   ): Promise<void> {
@@ -47,5 +48,5 @@ export class RoomService {
     console.log('掃除を完了しました');
   }
 
-  getRoom() {}
+  // getRooms(uid: string, roomIds: string[]): {};
 }
