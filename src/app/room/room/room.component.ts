@@ -11,15 +11,17 @@ export class RoomComponent implements OnInit {
   room: Room = {
     roomId: "1233",
     roomName: "kitchen",
-    latest: new Date( '2020/12/3 12:20:43'),
+    latest: new Date( '2020/11/2 12:20:43'),
     pooCount: 2,
   };
 
   now = new Date();
 
-  limitDate = this.now.getDay() - this.room.latest.getDay();
+  elapsedDate = Math.floor((this.now.getTime() - this.room.latest.getTime()) / 86400000);
 
-  progressNum = (((7 - this.limitDate) / 7 ) * 300 | 0);
+  limitDate = 21 - this.elapsedDate;
+
+  progressNum = Math.min(300, (this.elapsedDate / 21) * 300 );
 
   constructor() {}
 

@@ -10,7 +10,13 @@
     </div>
 
     <div class="room__body">
-      <p class="room__limit">掃除まであと{{ limitDate }}日！</p>
+      <p class="room__limit">
+        {{
+          limitDate <= 0
+            ? '掃除をしましょう！'
+            : '掃除まであと' + limitDate + '日'
+        }}
+      </p>
 
       <span class="room__gauge-wrapper">
         <div
