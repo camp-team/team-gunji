@@ -1,1 +1,37 @@
-<p>room works!</p>
+<div class="container">
+  <div class="room">
+    <div class="room__visual">
+      <h1>{{ room.roomName }}</h1>
+      <img
+        class="room__image"
+        src="assets/images/room-icon-{{ room.roomName }}.png"
+        alt=""
+      />
+    </div>
+
+    <div class="room__body">
+      <p class="room__limit">
+        {{
+          limitDate <= 0
+            ? '掃除をしましょう！'
+            : '掃除まであと' + limitDate + '日'
+        }}
+      </p>
+
+      <span class="room__gauge-wrapper">
+        <div
+          class="room__gauge"
+          [style]="'width:' + progressNum + 'px'"
+          [class.warn]="progressNum >= 100 && progressNum < 200"
+          [class.danger]="progressNum >= 200"
+        ></div>
+      </span>
+    </div>
+
+    <div class="room__clean">
+      <button (click)="finishedTask()" class="room__button" mat-raised-button>
+        掃除完了！
+      </button>
+    </div>
+  </div>
+</div>
