@@ -33,6 +33,7 @@
 .room__gauge {
   height: 30px;
   background-color: #29fb46;
+  transition: 0.3s ease-out;
 }
 .room__gauge.warn {
   background-color: #eefb29;
