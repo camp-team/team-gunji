@@ -13,8 +13,14 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+import { ShellComponent } from './shell/shell.component';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    ShellComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
