@@ -44,3 +44,23 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.pager {
+  text-align: center;
+  span {
+    margin: 0 2px;
+  }
+}
