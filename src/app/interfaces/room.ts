@@ -2,6 +2,6 @@ export interface Room {
   roomId: string;
   roomNum: number;
   roomName: string;
-  cycle: number;
+  latest: Date;
   pooCount: number;
 }

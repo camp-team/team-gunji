@@ -1,0 +1,43 @@
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  width: 400px;
+}
+
+.room {
+  &__visual {
+    margin-top: 40px;
+  }
+  &__image {
+    width: 400px;
+    height: auto;
+  }
+  &__clean {
+    margin-top: 40px;
+  }
+  &__button {
+    border-radius: 10px;
+    width: 300px;
+    height: 100px;
+    font-size: 24px;
+  }
+  &__gauge-wrapper {
+    display: inline-block;
+    width: 300px;
+    border: 1px solid #cccccc;
+    height: 30px;
+  }
+}
+
+.room__gauge {
+  height: 30px;
+  background-color: #29fb46;
+  transition: 0.3s ease-out;
+}
+.room__gauge.warn {
+  background-color: #eefb29;
+}
+.room__gauge.danger {
+  background-color: #fb3c29;
+}

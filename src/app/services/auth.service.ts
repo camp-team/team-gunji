@@ -4,11 +4,28 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { Observable, of } from 'rxjs';
+import { UserData } from '../interfaces/user';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  uid: string | any;
+
+  user$: Observable<any> = this.afAuth.authState.pipe(
+    switchMap((afUser) => {
+      if (afUser) {
+        this.uid = afUser?.uid;
+        return this.db.doc<UserData>(`users/${afUser.uid}`).valueChanges();
+      } else {
+        return of(null);
+      }
+    }),
+    shareReplay(1)
+  );
+
   constructor(
     private afAuth: AngularFireAuth,
     private db: AngularFirestore,
