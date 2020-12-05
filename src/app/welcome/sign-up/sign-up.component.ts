@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
@@ -8,8 +13,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  charIds1 = [...Array(25)].map((_, i) => i + 1);
-  // charIds2 = [...Array(25)].map((_,　i) => i + 25);
+  charIds = [...Array(50)].map((_, i) => i + 1);
   config: SwiperConfigInterface = {
     loop: true,
     navigation: true,
@@ -22,17 +26,15 @@ export class SignUpComponent implements OnInit {
   };
   selectedCharId = 0;
   genderControl: string | any;
-  form = this.fb.group({
-    gender: ['male', Validators.required],
+  form: FormGroup = this.fb.group({
+    gender: ['male', [Validators.required]],
   });
-
+  genderValue = this.form.value.gender;
   get gender(): FormControl {
     return this.form.get('gender') as FormControl;
   }
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit(): void {
-    this.genderControl = this.form.value;
-    console.log(this.genderControl);
-  }
+  ngOnInit(): void {}
+  submit(): void {}
 }
