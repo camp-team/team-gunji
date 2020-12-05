@@ -1,6 +1,6 @@
 export interface Home {
   id: string;
   uid: string;
-  roomId: string[];
+  roomIds: string[];
   isPublic: boolean;
 }
