@@ -20,8 +20,10 @@ export const createPoo = functions
     return await batch.commit();
   });
 
-export const addPoo = functions.https.onCall((data, context) => {
-  return db
-    .doc(`users/${context.auth?.uid}/rooms/${data.roomId}`)
-    .update('pooCount', admin.firestore.FieldValue.increment(1));
-});
+export const addPoo = functions
+  .region('asia-northeast1')
+  .https.onCall((data, context) => {
+    return db
+      .doc(`users/${context.auth?.uid}/rooms/${data.roomId}`)
+      .update('pooCount', admin.firestore.FieldValue.increment(1));
+  });
