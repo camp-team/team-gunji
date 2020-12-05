@@ -14,7 +14,7 @@ import { shareReplay, switchMap } from 'rxjs/operators';
 export class AuthService {
   uid: string | any;
 
-  user$: Observable<UserData> | any = this.afAuth.authState.pipe(
+  user$: Observable<any> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
         this.uid = afUser?.uid;
