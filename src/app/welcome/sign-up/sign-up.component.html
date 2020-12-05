@@ -1,1 +1,29 @@
-<p>sign-up works!</p>
+<h1>アバター選択</h1>
+<form [formGroup]="form" (ngsubmit)="submit()">
+  <mat-radio-group formControlName="gender" class="radio-group">
+    <mat-radio-button class="radio-group__item" value="male"
+      >男性</mat-radio-button
+    >
+    <mat-radio-button class="radio-group__item" value="female"
+      >女性</mat-radio-button
+    >
+  </mat-radio-group>
+  <div class="swiper">
+    <ng-container *ngIf="gender.value === 'male'">
+      <swiper [config]="config" [(index)]="selectedCharId">
+        <div *ngFor="let charId of charIds | slice: 0:25" class="swiper-slide">
+          <img src="/assets/images/char-{{ charId }}.png" alt="" />
+        </div>
+      </swiper>
+      <div class="pager"></div>
+    </ng-container>
+    <ng-container *ngIf="gender.value === 'female'">
+      <swiper [config]="config" [(index)]="selectedCharId">
+        <div *ngFor="let charId of charIds | slice: 25:51" class="swiper-slide">
+          <img src="/assets/images/char-{{ charId }}.png" alt="" />
+        </div>
+      </swiper>
+      <div class="pager"></div>
+    </ng-container>
+  </div>
+</form>
