@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Home } from '../interfaces/home';
+import * as firebase from 'firebase';
 import { Room } from '../interfaces/room';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoomService {
-  constructor(private db: AngularFirestore, private router: Router) {}
+  constructor(
+    private db: AngularFirestore,
+    private router: Router,
+    private snackBar: MatSnackBar
+  ) {}
 
-  async createHome(home: Omit<Home, 'id'>): Promise<void> {
-    const id = this.db.createId();
-    await this.db
-      .doc<Home>(`homes/${id}`)
-      .set({
-        id,
-        ...home,
+  async createRooms(
+    rooms: Omit<Room, 'id' | 'completedAt'>[],
+    uid: string
+  ): Promise<void> {
+    await Promise.all(
+      rooms.map((room) => {
+        const id: string = this.db.createId();
+        return this.db.doc<Room>(`users/${uid}/rooms/${id}`).set({
+          ...room,
+          id,
+          completedAt: firebase.default.firestore.Timestamp.now(),
+        });
       })
-      .then(() => {
-        this.router.navigateByUrl(`home/${id}`);
-      });
+    ).then(() => this.snackBar.open('ルームを作成しました'));
   }
 
   async updateRoom(
@@ -31,7 +38,7 @@ export class RoomService {
     pooCount: number,
     uid: number
   ): Promise<void> {
-    await this.db.doc(`users/${uid}/rooms/${roomId}`).set({
+    await this.db.doc(`users/${uid}/rooms/${roomId}`).update({
       roomId,
       roomName,
       latest,

@@ -6,9 +6,12 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Home } from 'src/app/interfaces/home';
 import { Room } from 'src/app/interfaces/room';
+import { UserData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-create-home',
@@ -16,100 +19,86 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./create-home.component.scss'],
 })
 export class CreateHomeComponent implements OnInit {
-  rooms: Room[] = [
+  user$: Observable<UserData> = this.authService.user$;
+  isProcessing: any;
+
+  readonly rooms: Omit<Room, 'id' | 'completedAt'>[] = [
     {
-      roomId: '1',
-      roomNum: 1,
-      roomName: 'リビング',
-      cycle: 21,
+      imageId: 0,
+      name: 'リビング',
       pooCount: 0,
     },
     {
-      roomId: '2',
-      roomNum: 2,
-      roomName: 'ダイニング',
-      cycle: 21,
+      imageId: 1,
+      name: 'ダイニング',
       pooCount: 0,
     },
     {
-      roomId: '3',
-      roomNum: 3,
-      roomName: 'キッチン',
-      cycle: 21,
+      imageId: 2,
+      name: 'キッチン',
       pooCount: 0,
     },
     {
-      roomId: '4',
-      roomNum: 4,
-      roomName: 'バス',
-      cycle: 21,
+      imageId: 3,
+      name: 'バス',
       pooCount: 0,
     },
     {
-      roomId: '5',
-      roomNum: 5,
-      roomName: 'トイレ',
-      cycle: 21,
+      imageId: 4,
+      name: 'トイレ',
       pooCount: 0,
     },
     {
-      roomId: '6',
-      roomNum: 6,
-      roomName: '玄関',
-      cycle: 21,
+      imageId: 5,
+      name: '玄関',
       pooCount: 0,
     },
     {
-      roomId: '7',
-      roomNum: 7,
-      roomName: 'ベッドルーム',
-      cycle: 21,
+      imageId: 6,
+      name: 'ベッドルーム',
       pooCount: 0,
     },
     {
-      roomId: '8',
-      roomNum: 8,
-      roomName: 'デスク',
-      cycle: 21,
+      imageId: 7,
+      name: 'デスク',
       pooCount: 0,
     },
     {
-      roomId: '9',
-      roomNum: 9,
-      roomName: 'ランドリー',
-      cycle: 21,
+      imageId: 8,
+      name: 'ランドリー',
       pooCount: 0,
     },
   ];
 
   roomsFormGroup: FormGroup = this.fb.group({
-    roomsArray: this.fb.array([]),
+    roomsArray: this.fb.array(this.rooms.map((room) => new FormControl(false))),
   });
 
   get roomsArray(): FormArray {
     return this.roomsFormGroup.get('roomsArray') as FormArray;
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private roomService: RoomService
+  ) {}
 
-  ngOnInit(): void {
-    this.rooms.forEach((room) => {
-      this.roomsArray.push(new FormControl(false));
-    });
-  }
+  ngOnInit(): void {}
 
-  submit(): void {
-    const result = Object.assign({}, this.roomsFormGroup.value, {
-      rooms: this.rooms.filter(
-        (x, i) => !!this.roomsFormGroup.value.roomsArray[i]
-      ),
-    });
-    // const homeValue: Omit<Home, 'id'> = {
-    //   uid
-    //   roomId: string[];
-    //   isPublic: boolean;
-    // };
+  submit(uid: string): void {
+    this.isProcessing = true;
+    const formValue = this.roomsFormGroup.value.roomsArray;
+    const selectedIds: number[] = Object.entries(formValue)
+      .filter(([key, value]) => value)
+      .map(([key, value]) => +key);
+    const selectedRooms: Omit<
+      Room,
+      'id' | 'completedAt'
+    >[] = this.rooms.filter((room) => selectedIds.includes(room.imageId));
 
-    console.log(result);
+    this.roomService
+      .createRooms(selectedRooms, uid)
+      .finally(() => (this.isProcessing = false));
   }
 }

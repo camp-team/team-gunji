@@ -1,16 +1,24 @@
 <h2>SELECT</h2>
 <p>掃除する場所を選択しよう</p>
 
-<form [formGroup]="roomsFormGroup" (ngSubmit)="submit()" class="rooms">
-  <ul formArrayName="roomsArray">
-    <li *ngFor="let room of rooms; index as i">
-      <mat-checkbox class="rooms__btn" [formControlName]="i">
-        {{ room.roomName }}
-      </mat-checkbox>
-      <img src="assets/images/room-icon-{{ room.roomNum }}.png" alt="" />
-    </li>
-  </ul>
+<ng-container *ngIf="user$ | async as user">
+  <form
+    [formGroup]="roomsFormGroup"
+    (ngSubmit)="submit(user.uid)"
+    class="rooms"
+  >
+    <ul formArrayName="roomsArray">
+      <li *ngFor="let room of rooms; index as i">
+        <mat-checkbox class="rooms__btn" [formControlName]="i">
+          {{ room.name }}
+        </mat-checkbox>
+        <img src="assets/images/room-icon-{{ room.imageId }}.png" alt="" />
+      </li>
+    </ul>
 
-  <button class="rooms__submit" type="submit">決定</button>
-  <p><small>あとから変更できます</small></p>
-</form>
+    <button class="rooms__submit" type="submit" [disabled]="isProcessing">
+      決定
+    </button>
+    <p><small>あとから変更できます</small></p>
+  </form>
+</ng-container>
