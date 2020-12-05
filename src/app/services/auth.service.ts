@@ -16,18 +16,22 @@ export class AuthService {
     private snackBar: MatSnackBar
   ) {}
 
-  login(): void {
+  async login(): Promise<void> {
     const provider = new firebase.default.auth.GoogleAuthProvider();
+    const openSnackBar = () => {
+      this.snackBar.open('ログインしました', undefined, {
+        duration: 2500,
+      });
+    };
     provider.setCustomParameters({ prompt: 'select_account' });
-    this.afAuth.signInWithPopup(provider).then((result) => {
+    return this.afAuth.signInWithPopup(provider).then((result) => {
       if (result.additionalUserInfo?.isNewUser) {
         this.router.navigateByUrl('/sign-up');
+        openSnackBar();
       } else {
         this.router.navigateByUrl('');
+        openSnackBar();
       }
-    });
-    this.snackBar.open('ログインしました', undefined, {
-      duration: 2500,
     });
   }
 
