@@ -36,5 +36,6 @@ export class SignUpComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {}
+
   submit(): void {}
 }
