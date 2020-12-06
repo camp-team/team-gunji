@@ -31,11 +31,7 @@ export class AuthService {
     private db: AngularFirestore,
     private router: Router,
     private snackBar: MatSnackBar
-  ) {
-    this.user$.subscribe((user) => {
-      this.uid = user;
-    });
-  }
+  ) {}
 
   async login(): Promise<void> {
     const provider = new firebase.default.auth.GoogleAuthProvider();
