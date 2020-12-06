@@ -1,4 +1,15 @@
 <div class="welcome">
-  <button (click)="authService.login()">googleLogin</button>
-  <button (click)="authService.logout()">ログアウト</button>
+  <button (click)="authService.login()"></button>
+
+  <div class="button" (click)="authService.login()">
+    <div class="line-container">
+      <span class="text">googleLogin</span>
+      <div class="line line--top-left line--thick thick-line--short"></div>
+      <div class="line line--top-right line--thick thick-line--short"></div>
+      <div class="line line--bottom-left line--thick thick-line--long"></div>
+      <div class="line line--bottom-right line--thick thick-line--long"></div>
+      <div class="line line--top line--thin"></div>
+      <div class="line line--bottom line--thin"></div>
+    </div>
+  </div>
 </div>
