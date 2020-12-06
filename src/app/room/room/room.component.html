@@ -1,37 +1,42 @@
-<div class="container">
-  <div class="room">
-    <div class="room__visual">
-      <h1>{{ room.name }}</h1>
-      <img
-        class="room__image"
-        src="assets/images/room-icon-{{ room.imageId }}.png"
-        alt=""
-      />
-    </div>
+<div class="pc-container">
+  <ng-container *ngIf="room$ | async as room">
+    <div class="room" style.backgroung-image="assets/images/room-1.png">
+      <div class="room__visual">
+        <h1>{{ room.name }}</h1>
+        <img
+          class="room__image"
+          src="assets/images/room-icon-{{ room.imageId }}.png"
+          alt=""
+        />
+        <ng-container>
+          <img src="assets/image/" alt="" />
+        </ng-container>
+      </div>
 
-    <div class="room__body">
-      <p class="room__limit">
-        {{
-          limitDate <= 0
-            ? '掃除をしましょう！'
-            : '掃除まであと' + limitDate + '日'
-        }}
-      </p>
+      <div class="room__body">
+        <p class="room__limit">
+          {{
+            limitDate <= 0
+              ? '掃除をしましょう！'
+              : '掃除まであと' + limitDate + '日'
+          }}
+        </p>
 
-      <span class="room__gauge-wrapper">
-        <div
-          class="room__gauge"
-          [style]="'width:' + progressNum + 'px'"
-          [class.warn]="progressNum >= 100 && progressNum < 200"
-          [class.danger]="progressNum >= 200"
-        ></div>
-      </span>
-    </div>
+        <span class="room__gauge-wrapper">
+          <div
+            class="room__gauge"
+            [style]="'width:' + progressNum + 'px'"
+            [class.warn]="progressNum >= 100 && progressNum < 200"
+            [class.danger]="progressNum >= 200"
+          ></div>
+        </span>
+      </div>
 
-    <div class="room__clean">
-      <button (click)="finishedTask()" class="room__button" mat-raised-button>
-        掃除完了！
-      </button>
+      <div class="room__clean">
+        <button (click)="finishedTask()" class="room__button" mat-raised-button>
+          掃除完了！
+        </button>
+      </div>
     </div>
-  </div>
+  </ng-container>
 </div>

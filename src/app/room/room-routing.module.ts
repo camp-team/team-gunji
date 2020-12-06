@@ -5,6 +5,7 @@ import { RoomComponent } from './room/room.component';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     component: RoomComponent,
   },
 ];

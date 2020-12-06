@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { Room } from 'src/app/interfaces/room';
+import { UserData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { RoomService } from 'src/app/services/room.service';
 
@@ -11,29 +15,50 @@ import { RoomService } from 'src/app/services/room.service';
 })
 export class RoomComponent implements OnInit {
   uid: number | any;
+  roomId: string;
+  room: Room;
+  elapsedDate;
+  limitDate;
+  progressNum;
 
-  room: Room = {
-    id: '1233',
-    name: 'kitchen',
-    completedAt: firebase.default.firestore.Timestamp.now(),
-    imageId: 1,
-    pooCount: 2,
-  };
+  user$: Observable<UserData> = this.authService.user$;
+
+  roomId$: Observable<string> = this.route.paramMap.pipe(
+    map((param) => {
+      return param.get('id');
+    })
+  );
+
+  room$: Observable<Room> = this.authService.user$.pipe(
+    switchMap((user) => {
+      return this.roomService.getRoom(user.uid, this.roomId);
+    })
+  );
 
   now = new Date();
 
-  elapsedDate = Math.floor(
-    (this.now.getTime() - this.room.completedAt.toMillis()) / 86400000
-  );
-
-  limitDate = 21 - this.elapsedDate;
-
-  progressNum = Math.min(300, (this.elapsedDate / 21) * 300);
-
   constructor(
     private roomService: RoomService,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {}
+
+  ngOnInit(): void {
+    this.authService.user$.subscribe((user: any) => {
+      this.uid = user.uid;
+    });
+    this.roomId$.subscribe((id) => {
+      this.roomId = id;
+    });
+    this.room$.subscribe((room) => {
+      this.room = room;
+    });
+    this.elapsedDate = Math.floor(
+      (this.now.getTime() - this.room.completedAt.toMillis()) / 86400000
+    );
+    this.limitDate = 21 - this.elapsedDate;
+    this.progressNum = Math.min(300, (this.elapsedDate / 21) * 300);
+  }
 
   finishedTask(): void {
     this.room.completedAt = firebase.default.firestore.Timestamp.now();
@@ -47,11 +72,5 @@ export class RoomComponent implements OnInit {
       this.room.pooCount,
       this.uid
     );
-  }
-
-  ngOnInit(): void {
-    this.authService.user$.subscribe((user: any) => {
-      this.uid = user.uid;
-    });
   }
 }

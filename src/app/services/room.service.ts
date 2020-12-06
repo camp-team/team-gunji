@@ -54,4 +54,8 @@ export class RoomService {
   getRooms(uid: string): Observable<Room[]> {
     return this.db.collection<Room>(`users/${uid}/rooms`).valueChanges();
   }
+
+  getRoom(uid: string, id: string): Observable<Room> {
+    return this.db.doc<Room>(`users/${uid}/rooms/${id}`).valueChanges();
+  }
 }
