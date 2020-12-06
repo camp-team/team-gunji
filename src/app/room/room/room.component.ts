@@ -35,7 +35,7 @@ export class RoomComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  finishedTask() {
+  finishedTask(): void {
     this.room.completedAt = firebase.default.firestore.Timestamp.now();
     this.room.pooCount = 0;
     this.limitDate = 21;
