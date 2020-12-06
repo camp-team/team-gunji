@@ -29,7 +29,10 @@ export class RoomService {
           completedAt: firebase.default.firestore.Timestamp.now(),
         });
       })
-    ).then(() => this.snackBar.open('ルームを作成しました'));
+    ).then(() => {
+      this.router.navigateByUrl(`/${uid}`);
+      this.snackBar.open('ルームを作成しました');
+    });
   }
 
   async updateRoom(
