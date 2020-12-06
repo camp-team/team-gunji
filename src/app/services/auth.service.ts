@@ -43,10 +43,10 @@ export class AuthService {
     provider.setCustomParameters({ prompt: 'select_account' });
     return this.afAuth.signInWithPopup(provider).then((result) => {
       if (result.additionalUserInfo?.isNewUser) {
-        this.router.navigateByUrl('/sign-up');
+        this.router.navigateByUrl('/welcome/sign-up');
         openSnackBar();
       } else {
-        this.router.navigateByUrl(`/${this.uid}`);
+        this.router.navigateByUrl(`/${result.user?.uid}`);
         openSnackBar();
       }
     });
