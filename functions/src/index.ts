@@ -5,3 +5,4 @@ admin.initializeApp(functions.config().firebase);
 
 export { createUser } from './user.function';
 export { createPoo, addPoo } from './poo.function';
+export { sendEmail } from './send-email.function';
