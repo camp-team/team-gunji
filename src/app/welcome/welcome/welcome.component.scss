@@ -1,7 +1,12 @@
+@import 'mixins';
+
 .welcome {
   width: 100vw;
   height: 100vh;
   background: url(/assets/images/welcome.png) no-repeat center/cover;
+  @include pc {
+    max-width: 100%;
+  }
 }
 
 .button {
