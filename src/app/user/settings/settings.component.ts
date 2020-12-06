@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { UserData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -11,6 +12,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SettingsComponent implements OnInit {
   user: UserData | any;
+
+  selectedCharId = 0;
+  charIds = [...Array(50)].map((_, i) => i + 1);
+  config: SwiperConfigInterface = {
+    loop: true,
+    navigation: true,
+    pagination: {
+      el: '.pager',
+      clickable: true,
+    },
+    centeredSlides: true,
+    slidesPerView: 3,
+  };
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -21,7 +36,7 @@ export class SettingsComponent implements OnInit {
     name: ['', Validators.required],
     avatarURL: ['', Validators.required],
     avatarId: ['', Validators.required],
-    geder: ['male', Validators.required],
+    gender: ['male', Validators.required],
   });
 
   get name(): FormControl {
@@ -37,11 +52,18 @@ export class SettingsComponent implements OnInit {
   }
 
   saveValue(): void {
+    let selectedIndex: number;
+    if (this.form.get('gender')?.value === 'male') {
+      selectedIndex = this.selectedCharId;
+    } else {
+      selectedIndex = this.selectedCharId + 25;
+    }
+    console.log(selectedIndex);
     this.userService.updateUserSetting(
       this.user.uid,
       this.form.get('name')?.value,
       this.form.get('avatarURL')?.value,
-      this.form.get('avatarId')?.value
+      selectedIndex + 1
     );
   }
 
