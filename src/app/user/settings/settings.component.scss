@@ -1,6 +1,6 @@
 .setting {
   height: 90vh;
-  padding-top: 80px;
+  padding-top: 70px;
   &__title {
     color: #f5cf81;
     padding-left: 30px;
@@ -9,12 +9,22 @@
     padding-left: 30px;
   }
   &__field {
-    margin-top: 30px;
+    margin-top: 20px;
     display: block;
     width: 90%;
   }
   &__button {
-    margin-top: 40px;
+    margin-top: 30px;
     text-align: center;
   }
+  &__avatar {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #757575;
+  }
+}
+
+.swiper {
+  margin-top: 20px;
 }
