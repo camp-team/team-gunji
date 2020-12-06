@@ -20,17 +20,33 @@ export const sendEmail = functions
       const userDoc = await db.doc(`users/${context.params.userId}`).get();
       return shouldEventRun(eventId).then(async (should: boolean) => {
         if (should) {
-          await sgMail.send({
-            from: {
-              email: 'hiroponpoko07@gmail.com',
-              name: 'UNKO BUSTER',
-            },
-            to: userDoc.data()?.email,
-            templateId: 'd-0870b0742f6641698a7da5f86359e1e2',
-            dynamicTemplateData: {
-              room: data.name,
-            },
-          });
+          await sgMail
+            .send({
+              from: {
+                email: 'hiroponpoko07@gmail.com',
+                name: 'UNKO BUSTER',
+              },
+              to: userDoc.data()?.email,
+              templateId: 'd-0870b0742f6641698a7da5f86359e1e2',
+              dynamicTemplateData: {
+                room: data.name,
+              },
+            })
+            .then(() => {
+              functions.logger.info('sucsess');
+            })
+            .catch((error) => {
+              console.error(error);
+              functions.logger.info(error);
+
+              if (error.response) {
+                const { response } = error;
+
+                const { body } = response;
+
+                console.error(body);
+              }
+            });
           return markEventTried(eventId);
         } else {
           return;
