@@ -27,6 +27,7 @@ export class SignUpComponent implements OnInit {
     centeredSlides: true,
     slidesPerView: 3,
   };
+
   selectedCharId = 0;
   genderControl: string | any;
   form: FormGroup = this.fb.group({
@@ -44,7 +45,13 @@ export class SignUpComponent implements OnInit {
   ) {}
 
   submit(uid: string): void {
-    this.userService.updateUserOnlyAvatarId(uid, this.selectedCharId);
+    let selectedIndex: number;
+    if (this.form.get('gender')?.value === 'male') {
+      selectedIndex = this.selectedCharId;
+    } else {
+      selectedIndex = this.selectedCharId + 25;
+    }
+    this.userService.updateUserOnlyAvatarId(uid, selectedIndex);
     this.router.navigateByUrl('/welcome/create-home');
   }
 
