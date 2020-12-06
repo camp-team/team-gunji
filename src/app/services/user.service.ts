@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserData } from '../interfaces/user';
 
@@ -7,7 +8,7 @@ import { UserData } from '../interfaces/user';
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, private snackBar: MatSnackBar) {}
 
   getUser(uid: string): Observable<UserData | undefined> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();
@@ -29,5 +30,26 @@ export class UserService {
       },
       { merge: true }
     );
+  }
+
+  updateUserSetting(
+    uid: string,
+    name: string,
+    avatarURL: string,
+    avatarId: number
+  ) {
+    return this.db
+      .doc<{ name: string; avatarURL: string; avatarId: number }>(
+        `users/${uid}`
+      )
+      .set(
+        {
+          name,
+          avatarURL,
+          avatarId,
+        },
+        { merge: true }
+      )
+      .then(() => this.snackBar.open('プロフィールを変更しました！'));
   }
 }

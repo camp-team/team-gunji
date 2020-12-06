@@ -1,1 +1,43 @@
-<p>settings works!</p>
+<div class="setting">
+  <h1 class="setting__title">ユーザ設定</h1>
+  <form [formGroup]="form" (ngSubmit)="saveValue()">
+    <div class="setting__inputs">
+      <mat-form-field class="setting__field">
+        <mat-label>名前</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          placeholder="名前を入力してください"
+          value="{{ user.name }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="setting__field">
+        <mat-label>アイコン</mat-label>
+        <input
+          matInput
+          formControlName="avatarURL"
+          placeholder="アイコンのURLを入力してください"
+          value="{{ user.avatarURL }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="setting__field">
+        <mat-label>アバターID</mat-label>
+        <input
+          matInput
+          formControlName="avatarId"
+          placeholder="アバターIDを入力してください"
+          value="{{ user.avatarId }}"
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="setting__button">
+      <button [disabled]="form.invalid" mat-raised-button>保存</button>
+    </div>
+  </form>
+</div>
