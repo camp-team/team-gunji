@@ -1,1 +1,23 @@
-<p>home works!</p>
+<ng-container *ngIf="user$ | async as user">
+  <div class="pc-container">
+    <div class="hero">
+      <div class="hero__main">
+        <img src="assets/images/home-0.png" alt="" />
+      </div>
+      <figure class="hero__char">
+        <img cdkDrag src="assets/images/char-{{ user.avatarId }}.png" alt="" />
+      </figure>
+    </div>
+
+    <div class="room">
+      <ul class="room__grid">
+        <ng-container *ngFor="let room of rooms$ | async">
+          <li [routerLink]="'/room/' + room.id" class="room__img">
+            <img src="assets/images/room-icon-{{ room.imageId }}.png" alt="" />
+            <p class="room__name">{{ room.name }}</p>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</ng-container>

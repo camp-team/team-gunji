@@ -48,5 +48,7 @@ export class RoomService {
     console.log('掃除を完了しました');
   }
 
-  // getRooms(uid: string, roomIds: string[]): {};
+  getRooms(uid: string): Observable<Room[]> {
+    return this.db.collection<Room>(`users/${uid}/rooms`).valueChanges();
+  }
 }

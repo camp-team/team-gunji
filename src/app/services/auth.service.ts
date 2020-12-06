@@ -46,7 +46,7 @@ export class AuthService {
         this.router.navigateByUrl('/sign-up');
         openSnackBar();
       } else {
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl(`/${this.uid}`);
         openSnackBar();
       }
     });
