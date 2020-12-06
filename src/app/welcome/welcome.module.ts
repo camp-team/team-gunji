@@ -9,6 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { SwiperModule } from 'ngx-swiper-wrapper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [WelcomeComponent, CreateHomeComponent, SignUpComponent],
@@ -20,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SwiperModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
   ],
 })
 export class WelcomeModule {}

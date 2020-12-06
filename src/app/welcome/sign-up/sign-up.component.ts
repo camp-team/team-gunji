@@ -5,7 +5,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -33,9 +36,17 @@ export class SignUpComponent implements OnInit {
   get gender(): FormControl {
     return this.form.get('gender') as FormControl;
   }
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    public authService: AuthService
+  ) {}
+
+  submit(uid: string): void {
+    this.userService.updateUserOnlyAvatarId(uid, this.selectedCharId);
+    this.router.navigateByUrl('/welcome/create-home');
+  }
 
   ngOnInit(): void {}
-
-  submit(): void {}
 }
