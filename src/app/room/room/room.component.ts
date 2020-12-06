@@ -20,6 +20,7 @@ export class RoomComponent implements OnInit {
   elapsedDate;
   limitDate;
   progressNum;
+  progressPoo;
 
   user$: Observable<UserData> = this.authService.user$;
 
@@ -52,12 +53,13 @@ export class RoomComponent implements OnInit {
     });
     this.room$.subscribe((room) => {
       this.room = room;
+      this.elapsedDate = Math.floor(
+        (this.now.getTime() - this.room.completedAt.toMillis()) / 86400000
+      );
+      this.limitDate = 21 - this.elapsedDate;
+      this.progressNum = Math.min(300, (this.elapsedDate / 21) * 300);
+      this.progressPoo = this.room.pooCount * 100;
     });
-    this.elapsedDate = Math.floor(
-      (this.now.getTime() - this.room.completedAt.toMillis()) / 86400000
-    );
-    this.limitDate = 21 - this.elapsedDate;
-    this.progressNum = Math.min(300, (this.elapsedDate / 21) * 300);
   }
 
   finishedTask(): void {
