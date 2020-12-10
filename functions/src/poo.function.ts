@@ -14,7 +14,7 @@ export const createPoo = functions
     const batch = db.batch();
     rooms.forEach((room) => {
       batch.update(room.ref, {
-        pooCount: admin.firestore.FieldValue.increment(1),
+        pooCount: admin.firestore.FieldValue.increment(2),
       });
     });
     return await batch.commit();
@@ -25,5 +25,5 @@ export const addPoo = functions
   .https.onCall((data, context) => {
     return db
       .doc(`users/${context.auth?.uid}/rooms/${data.roomId}`)
-      .update('pooCount', admin.firestore.FieldValue.increment(1));
+      .update('pooCount', admin.firestore.FieldValue.increment(2));
   });
