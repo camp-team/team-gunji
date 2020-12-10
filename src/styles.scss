@@ -29,10 +29,11 @@ body {
   height: 100%;
 }
 body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Barlow Condensed', sans-serif;
 }
 
+html,
+body,
 h1,
 h2,
 h3,
@@ -58,6 +59,12 @@ a {
 img {
   max-width: 100%;
   vertical-align: bottom;
+}
+
+button {
+  outline: none;
+  border: none;
+  appearance: none;
 }
 
 .pager {
