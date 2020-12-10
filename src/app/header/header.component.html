@@ -1,9 +1,20 @@
 <div class="header">
-  <p class="header__logo">
+  <a class="header__logo" routerLink="/welcome">
     <img src="assets/images/logo.png" alt="" />
-  </p>
+  </a>
 
   <span class="spacer"></span>
+
+  <ng-container *ngIf="room$ | async as room; else home">
+    <div class="header__room-name">
+      <p>{{ room?.name }}</p>
+    </div>
+  </ng-container>
+  <ng-template #home>
+    <div class="header__room-name">
+      <p>ホーム</p>
+    </div>
+  </ng-template>
 
   <ng-container *ngIf="user$ | async as user">
     <button
@@ -22,7 +33,6 @@
         <mat-icon>exit_to_app</mat-icon>
         <span>ログアウト</span>
       </button>
-      <mat-divider class="divider"></mat-divider>
     </mat-menu>
   </ng-container>
 </div>
