@@ -1,20 +1,23 @@
 <div class="pc-container">
   <ng-container *ngIf="room$ | async as room">
-    <div class="room" style.backgroung-image="assets/images/room-1.png">
-      <div class="room__visual">
-        <h1>{{ room.name }}</h1>
-        <img
-          class="room__image"
-          src="assets/images/room-icon-{{ room.imageId }}.png"
-          alt=""
-        />
-        <ng-container>
-          <img src="assets/image/" alt="" />
-        </ng-container>
+    <div
+      class="room"
+      [style.background-image]="
+        'url(assets/images/room-' + room.imageId + '.png)'
+      "
+    >
+      <div class="room__main">
+        <div
+          *ngFor="let poo of pooLength; index as i"
+          class="room__poo"
+          [style]="'top:' + top[i] + 'px; left:' + left[i] + 'px'"
+        >
+          <img @bounce src="assets/images/poo.png" alt="" />
+        </div>
       </div>
 
-      <div class="room__body">
-        <p class="room__limit">
+      <div class="room__limit-wrap">
+        <p class="room__limit-text">
           {{
             limitDate <= 0
               ? '掃除をしましょう！'
@@ -22,19 +25,25 @@
           }}
         </p>
 
-        <span class="room__gauge-wrapper">
+        <div class="room__limit-bar-wrap">
           <div
-            class="room__gauge"
-            [style]="'width:' + progressPoo + 'px'"
+            class="room__limit-bar"
+            [style]="'width:' + progressNum + 'px'"
             [class.warn]="progressNum >= 100 && progressNum < 200"
             [class.danger]="progressNum >= 200"
           ></div>
-        </span>
+          <img src="assets/images/poo.png" alt="" />
+        </div>
       </div>
 
-      <div class="room__clean">
-        <button (click)="finishedTask()" class="room__button" mat-raised-button>
-          掃除完了！
+      <div class="room__btn-wrap">
+        <span
+          class="room__btn-ring"
+          [class.warn]="progressNum >= 100 && progressNum < 200"
+          [class.danger]="progressNum >= 200"
+        ></span>
+        <button (click)="finishedTask()" class="room__btn">
+          <mat-icon>done_outline</mat-icon>Finish!
         </button>
       </div>
     </div>
