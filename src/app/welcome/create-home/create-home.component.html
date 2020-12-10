@@ -1,24 +1,28 @@
-<h2>SELECT</h2>
-<p>掃除する場所を選択しよう</p>
+<div class="select-room-wrap">
+  <div class="heading">
+    <h2 class="heading__main">SELECT ROOM</h2>
+  </div>
 
-<ng-container *ngIf="user$ | async as user">
-  <form
-    [formGroup]="roomsFormGroup"
-    (ngSubmit)="submit(user.uid)"
-    class="rooms"
-  >
-    <ul formArrayName="roomsArray">
-      <li *ngFor="let room of rooms; index as i">
-        <mat-checkbox class="rooms__btn" [formControlName]="i">
-          {{ room.name }}
-        </mat-checkbox>
-        <img src="assets/images/room-icon-{{ room.imageId }}.png" alt="" />
-      </li>
-    </ul>
+  <p class="description">掃除を管理したい場所を全て選ぼう</p>
 
-    <button class="rooms__submit" type="submit" [disabled]="isProcessing">
-      決定
-    </button>
-    <p><small>あとから変更できます</small></p>
-  </form>
-</ng-container>
+  <ng-container *ngIf="user$ | async as user">
+    <form [formGroup]="roomsFormGroup" (ngSubmit)="submit(user.uid)">
+      <ul formArrayName="roomsArray" class="rooms">
+        <li
+          *ngFor="let room of rooms; index as i"
+          class="rooms__item"
+          [class.selected]="room"
+        >
+          <mat-checkbox class="rooms__btn" [formControlName]="i">
+            {{ room.name }}
+          </mat-checkbox>
+        </li>
+      </ul>
+
+      <button class="rooms__submit" type="submit" [disabled]="isProcessing">
+        決定
+      </button>
+      <p class="rooms__text"><small>あとから変更できます</small></p>
+    </form>
+  </ng-container>
+</div>

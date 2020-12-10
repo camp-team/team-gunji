@@ -1,0 +1,53 @@
+.select-room-wrap {
+  text-align: center;
+  width: 100%;
+  height: 100vh;
+  background: url(/assets/images/select-avatar-bg.png) no-repeat center/cover;
+  padding-top: 16px;
+}
+
+.heading {
+  width: 80%;
+  margin: 24px auto;
+  background: rgba(#424242, 0.6);
+  border: 2px solid #fff;
+  padding: 16px;
+  &__main {
+    color: #fff;
+    font-size: 24px;
+  }
+  &__sub {
+    color: #fff;
+    font-size: 14px;
+  }
+}
+.description {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.rooms {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  width: 80%;
+  margin: 0 auto 40px;
+  text-align: left;
+  color: #fff;
+  &__item {
+    background: rgba(#fff, 0.16);
+    margin-bottom: 8px;
+    padding: 8px;
+  }
+  &__submit {
+    padding: 8px 16px;
+    background: #1865a3;
+    box-shadow: inset 0 0 10px #020339;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  &__text {
+    color: #fff;
+  }
+}

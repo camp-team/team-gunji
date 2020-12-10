@@ -40,7 +40,7 @@ export class CreateHomeComponent implements OnInit {
     },
     {
       imageId: 3,
-      name: 'バス',
+      name: 'バスルーム',
       pooCount: 0,
     },
     {
@@ -50,7 +50,7 @@ export class CreateHomeComponent implements OnInit {
     },
     {
       imageId: 5,
-      name: '玄関',
+      name: 'エントランス',
       pooCount: 0,
     },
     {
