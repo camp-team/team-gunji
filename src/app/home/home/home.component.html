@@ -12,7 +12,11 @@
     <div class="room">
       <ul class="room__grid">
         <ng-container *ngFor="let room of rooms$ | async">
-          <li [routerLink]="'/room/' + room.id" class="room__img">
+          <li
+            [routerLink]="'/room/' + room.id"
+            (click)="streamParams(room.id)"
+            class="room__img"
+          >
             <img src="assets/images/room-icon-{{ room.imageId }}.png" alt="" />
             <p class="room__name">{{ room.name }}</p>
           </li>

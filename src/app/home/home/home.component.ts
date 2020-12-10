@@ -5,6 +5,7 @@ import { Room } from 'src/app/interfaces/room';
 import { UserData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { RoomService } from 'src/app/services/room.service';
+import { RoutingService } from 'src/app/services/routing.service';
 
 @Component({
   selector: 'app-home',
@@ -24,8 +25,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private roomService: RoomService
+    private roomService: RoomService,
+    private routingService: RoutingService
   ) {}
 
   ngOnInit(): void {}
+
+  streamParams(id: string): void {
+    this.routingService.roomIdSubject.next(id);
+  }
 }

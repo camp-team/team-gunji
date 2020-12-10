@@ -1,10 +1,7 @@
 @import 'mixins';
 
 .hero {
-  height: 40vh;
   position: relative;
-  padding: 40px 0;
-  transform: translateY(8px);
   border-bottom: 8px solid #42322b;
   box-shadow: 0 0 5px #000000;
   @include pc {
@@ -27,7 +24,7 @@
 }
 
 .room {
-  padding: 40px 8px;
+  padding: 26px 8px;
   background: url(/assets/images/background.png) no-repeat center/cover;
   &__grid {
     display: grid;
