@@ -38,17 +38,19 @@ export class RoomService {
   async updateRoom(
     roomId: string,
     roomName: string,
-    latest: firebase.default.firestore.Timestamp,
+    completedAt: firebase.default.firestore.Timestamp,
     pooCount: number,
     uid: number
   ): Promise<void> {
-    await this.db.doc(`users/${uid}/rooms/${roomId}`).update({
-      roomId,
-      roomName,
-      latest,
-      pooCount,
-    });
-    console.log('掃除を完了しました');
+    await this.db
+      .doc(`users/${uid}/rooms/${roomId}`)
+      .update({
+        roomId,
+        roomName,
+        completedAt,
+        pooCount,
+      })
+      .then(() => this.snackBar.open('掃除を完了しました'));
   }
 
   getRooms(uid: string): Observable<Room[]> {
