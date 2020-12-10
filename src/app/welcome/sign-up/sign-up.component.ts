@@ -18,11 +18,15 @@ import { UserService } from 'src/app/services/user.service';
 export class SignUpComponent implements OnInit {
   charIds = [...Array(50)].map((_, i) => i + 1);
   config: SwiperConfigInterface = {
+    effect: 'coverflow',
     loop: true,
     navigation: true,
-    pagination: {
-      el: '.pager',
-      clickable: true,
+    coverflowEffect: {
+      rotate: 30,
+      stretch: 1,
+      depth: 200,
+      modifier: 1,
+      slideShadows: false,
     },
     centeredSlides: true,
     slidesPerView: 3,
@@ -44,10 +48,14 @@ export class SignUpComponent implements OnInit {
     public authService: AuthService
   ) {}
 
+  selectChar(i: number): void {
+    this.selectedCharId = this.charIds[i] - 1;
+  }
+
   submit(uid: string): void {
     let selectedIndex: number;
     if (this.form.get('gender')?.value === 'male') {
-      selectedIndex = this.selectedCharId;
+      selectedIndex = this.selectedCharId + 1;
     } else {
       selectedIndex = this.selectedCharId + 25;
     }

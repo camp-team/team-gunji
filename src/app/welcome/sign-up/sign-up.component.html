@@ -1,14 +1,15 @@
 <ng-container *ngIf="authService.user$ | async as user">
-  <div class="container">
-    <h1>アバター選択</h1>
+  <div class="select-char-wrap">
+    <div class="heading">
+      <h1 class="heading__main">SELECT PLAYER</h1>
+    </div>
+
     <form [formGroup]="form" (ngSubmit)="submit(user.uid)">
       <mat-radio-group formControlName="gender" class="radio-group">
-        <mat-radio-button class="radio-group__item" value="male"
+        <mat-radio-button color="primary" class="radio-group__item" value="male"
           >男性</mat-radio-button
         >
-        <mat-radio-button class="radio-group__item" value="female"
-          >女性</mat-radio-button
-        >
+        <mat-radio-button value="female">女性</mat-radio-button>
       </mat-radio-group>
       <div class="swiper">
         <ng-container *ngIf="gender.value === 'male'">
@@ -34,7 +35,34 @@
           <div class="pager"></div>
         </ng-container>
       </div>
-      <button class="submit" mat-raised-button>次へ進む</button>
+
+      <div *ngIf="gender.value === 'male'" class="char-wrap">
+        <div
+          *ngFor="let charId of charIds | slice: 0:25; index as i"
+          class="char"
+        >
+          <img
+            class="char__img"
+            src="/assets/images/char-{{ charId }}.png"
+            alt=""
+            (click)="selectChar(i)"
+            [class.select]="selectedCharId === i"
+          />
+        </div>
+      </div>
+      <div *ngIf="gender.value === 'female'" class="char-wrap">
+        <div
+          *ngFor="let charId of charIds | slice: 25:51; index as i"
+          class="char"
+        >
+          <img
+            src="/assets/images/char-{{ charId }}.png"
+            alt=""
+            (click)="selectChar(i)"
+          />
+        </div>
+      </div>
+      <button class="submit">次へ進む</button>
     </form>
   </div>
 </ng-container>
