@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarRef,
+  TextOnlySnackBar,
+} from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { UserData } from '../interfaces/user';
 
@@ -37,7 +41,7 @@ export class UserService {
     name: string,
     avatarURL: string,
     avatarId: number
-  ) {
+  ): Promise<MatSnackBarRef<TextOnlySnackBar>> {
     return this.db
       .doc<{ name: string; avatarURL: string; avatarId: number }>(
         `users/${uid}`
