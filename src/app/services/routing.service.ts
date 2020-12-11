@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoutingService {
-  roomIdSubject = new ReplaySubject<string>();
+  roomIdSubject = new BehaviorSubject<string>(undefined);
   roomId$: Observable<string> = this.roomIdSubject.asObservable();
 
   constructor() {}
