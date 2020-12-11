@@ -1,12 +1,6 @@
 <footer class="footer">
   <div class="actions" *ngIf="user$ | async as user">
     <span class="spacer"></span>
-    <button
-      class="actions__back-btn"
-      [routerLink]="user.uid"
-      (click)="subjectDestroy()"
-    >
-      ⬅︎ 🏠
-    </button>
+    <button class="actions__back-btn" [routerLink]="user.uid">⬅︎ 🏠</button>
   </div>
 </footer>
