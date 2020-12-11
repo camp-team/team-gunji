@@ -102,7 +102,7 @@ export class RoomComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.routingService.roomIdSubject.unsubscribe();
+    this.routingService.roomIdSubject.next(undefined);
   }
 
   finishedTask(): void {
