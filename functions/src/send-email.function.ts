@@ -49,10 +49,10 @@ export const sendEmail = functions
             });
           return markEventTried(eventId);
         } else {
-          return;
+          return false;
         }
       });
     } else {
-      return;
+      return false;
     }
   });
