@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Room } from '../interfaces/room';
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
       this.uid = user.uid;
       this.routingService.roomId$.subscribe((data) => {
         this.roomId = data;
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         console.log(data);
       });
       return this.roomService.getRoom(this.uid, this.roomId);
@@ -30,7 +32,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private roomService: RoomService,
-    private routingService: RoutingService
+    private routingService: RoutingService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
