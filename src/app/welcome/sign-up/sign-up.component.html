@@ -56,9 +56,11 @@
           class="char"
         >
           <img
+            class="char__img"
             src="/assets/images/char-{{ charId }}.png"
             alt=""
             (click)="selectChar(i)"
+            [class.select]="selectedCharId === i"
           />
         </div>
       </div>
